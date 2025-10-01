@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表 - 秘密导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Times New Roman", "Georgia", "SimSun", serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.7;
+            background: #f8f4e8 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" opacity="0.02"><rect width="120" height="120" fill="none" stroke="%23876d4d" stroke-width="1"/><path d="M0,60 Q60,0 120,60 Q60,120 0,60" fill="none" stroke="%23876d4d" stroke-width="0.5"/></svg>');
+            color: #3a3225;
+            border: 1px solid #b8a98d;
+            box-shadow: 0 0 20px rgba(139, 122, 94, 0.2);
+            position: relative;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        body:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+        }
+        body:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            border-bottom: 2px double #8a7a5e;
+            position: relative;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            color: #5d4c32;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .header p {
+            font-size: 1.1rem;
+            color: #8a7a5e;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        
+        .newspaper-masthead {
+            text-align: center;
+            font-family: "Palatino Linotype", "Book Antiqua", serif;
+            font-size: 14px;
+            color: #8a7a5e;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .article-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        .article-item {
+            background: rgba(255, 253, 248, 0.8);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #b8a98d;
+            position: relative;
+        }
+        .article-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-color: #8a7a5e;
+        }
+        .article-item:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #8a7a5e, transparent);
+        }
+        .article-content {
+            padding: 25px;
+        }
+        .article-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .article-title a {
+            color: #5d4c32;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .article-title a:hover {
+            color: #3a3225;
+            text-decoration: underline;
+        }
+        .article-excerpt {
+            color: #4a4235;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8a7a5e;
+            font-size: 0.9rem;
+            border-top: 1px dashed #b8a98d;
+            padding-top: 15px;
+        }
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+            color: #5d4c32;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #b8a98d;
+        }
+        .tag:hover {
+            background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+            color: #3a3225;
+            border-color: #8a7a5e;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 15px;
+            background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+            color: #5d4c32;
+            text-decoration: none;
+            border-radius: 2px;
+            border: 1px solid #b8a98d;
+            transition: all 0.3s ease;
+        }
+        .pagination a:hover {
+            background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+            color: #3a3225;
+            border-color: #8a7a5e;
+        }
+        .pagination .current {
+            background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+            color: #3a3225;
+            font-weight: bold;
+            border-color: #8a7a5e;
+        }
+        .pagination .disabled {
+            color: #b8a98d;
+            cursor: not-allowed;
+            background: linear-gradient(to bottom, #f0ece0, #e8e0d0);
+        }
+        
+        .friendly-links {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px double #8a7a5e;
+        }
+        .friendly-links .container {
+            margin-bottom: 30px;
+        }
+        .friendly-links .title {
+            font-size: 1.3rem;
+            color: #5d4c32;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #b8a98d;
+            text-transform: uppercase;
+        }
+        .friendly-links ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        .friendly-links li a {
+            display: block;
+            padding: 12px 15px;
+            background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+            border-radius: 2px;
+            color: #5d4c32;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid #b8a98d;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .friendly-links li a:hover {
+            background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+            color: #3a3225;
+            border-color: #8a7a5e;
+            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #8a7a5e;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px dashed #b8a98d;
+        }
+        .footer a {
+            color: #5d4c32;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #3a3225;
+            text-decoration: underline;
+        }
+        .software-img {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 120px;
+            border: 1px solid #8a7a5e;
+            box-shadow: 0 0 10px rgba(139, 122, 94, 0.3);
+            padding: 5px;
+            background: white;
+        }
+    </style>
+    <script src="/yidong.js"></script>
+</head>
+<body>
+    <div class="newspaper-masthead">秘密导航 文章档案</div>
+    
+    <header>
+         <img src="/logo.jpg" alt="logo" class="software-img">   
+    </header>
+    
+    <div class="header">
+        <h1>文章列表</h1>
+        <p>探索我们的精选文章，发现知识与灵感</p>
+    </div>
+    
+    <div class="article-list">
+        <!-- 文章列表将由 
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="fgw6d.html">秘密基地宣告页</a></h2>
+        <div class="article-excerpt"><h1>CF5月兰的秘密基地行动网址是甚么?</h1><p>CF（穿越前方）游戏中的“兰的秘密基地”行动，现已时光过，原活动网址可能已失效。此类活动通常通过官方渠道发布，若未来有类似活动，玩家可关注CF官方网站、官方活动专区，或加入CF游戏交流群（如389577140）获取最新信息。该活动曾提供极品...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsgxwydlcu.html" class="tag">基地</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="gt9m5p8.html">秘密导航载入中</a></h2>
+        <div class="article-excerpt"><h1>秘密进口专属于宅男的导航，平台：让你一次性看到爽！</h1><p><b>探索宅男的精神乐园：</b> 该平台汇聚了动漫、游戏、小说、影视等宅男热衷的各类元素，构建了一个全方位的精神乌托邦。专属的论坛和社区功能，让用户可以轻松交流兴趣，拉近彼此距离。</p><p><b>畅享无干扰观影体验：</...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tags5hbh.html" class="tag">秘密导航</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="b2d68.html">秘密基地宣告页导航网址</a></h2>
+        <div class="article-excerpt"><h1>秘密基地宣告页导航网址</h1><p>在探索虚拟世界或特定游戏领域时，导航至“秘密基地”的宣告页通常是获取最新信息、公告以及参与相关活动的关键入口。以下将为您梳理如何找到并利用这类导航网址。</p><h2>探索“秘密基地”：获取信息的关键导航</h2><p>“秘密基地”作为一个概念，常出现在...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagske8krf6.html" class="tag">秘密基地</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="elugf940ud7l.html">秘密导航唐宋诗词</a></h2>
+        <div class="article-excerpt"><p><b>宋词精选：经典诵读与意境赏析</b></p><p>宋词，作为中华古典文学的璀璨明珠，以其婉约的风格、深邃的意境和细腻的情感，俘获了无数读者的心。在中国文学的长河中，宋词占据着举足轻重的地位。许多宋词不仅代表了当时的文学高峰，更成为中华文化宝库中不可或缺的瑰宝。</p><p><b>赫赫有名...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsuwsik.html" class="tag">诗词，宋词，唐诗，李清照，欧阳修</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="vrgfrgrc1mam.html">秘密基地宣告页导航是甚么</a></h2>
+        <div class="article-excerpt"><h1>急寻口袋怪兽绿宝石版第七个徽章过后的祥细攻略!</h1><p>战败熔岩团的人后，去道谷市左上角的屋子，代后会送你秘传机08潜水。并吞道谷市，在127号水路运用潜水，在水中不断往下走，进入一个洞穴，发现潜水艇就在这里。上岸后击败路上水之团的人，并吞深处，碰着水之团首领，尚有海皇牙。</p><p...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsgxwydlcu.html" class="tag">基地</a><a href="tagspis47pz0gks.html" class="tag">导航</a><a href="tagst3nq5hikueor.html" class="tag">宣告页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="gxfr.html">秘密导航：都市舆图与秘密入口的探索</a></h2>
+        <div class="article-excerpt"><h1>都市舆图:探究都市的秘密刀兵与导航利器</h1><p>都市舆图是一种图形化工具，它揭示了都市的地舆信息，搜罗街道、修筑物、公园、交通关头等。经由都市舆图，人们可能直不雅地清晰都市的部份妄想以及部份细节。随着技术的睁开，今世都市舆图已经实现为了数字化以及智能化，可能利便地在手机、平板电脑等智能...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagspis47pz0gks.html" class="tag">导航</a>
+            </div>
+        </div>
+    </div>
+</div> 占位符动态生成 -->
+        
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="fgw6d.html">秘密基地宣告页</a></h2>
+        <div class="article-excerpt"><h1>CF5月兰的秘密基地行动网址是甚么?</h1><p>CF（穿越前方）游戏中的“兰的秘密基地”行动，现已时光过，原活动网址可能已失效。此类活动通常通过官方渠道发布，若未来有类似活动，玩家可关注CF官方网站、官方活动专区，或加入CF游戏交流群（如389577140）获取最新信息。该活动曾提供极品...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsgxwydlcu.html" class="tag">基地</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="gt9m5p8.html">秘密导航载入中</a></h2>
+        <div class="article-excerpt"><h1>秘密进口专属于宅男的导航，平台：让你一次性看到爽！</h1><p><b>探索宅男的精神乐园：</b> 该平台汇聚了动漫、游戏、小说、影视等宅男热衷的各类元素，构建了一个全方位的精神乌托邦。专属的论坛和社区功能，让用户可以轻松交流兴趣，拉近彼此距离。</p><p><b>畅享无干扰观影体验：</...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tags5hbh.html" class="tag">秘密导航</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="b2d68.html">秘密基地宣告页导航网址</a></h2>
+        <div class="article-excerpt"><h1>秘密基地宣告页导航网址</h1><p>在探索虚拟世界或特定游戏领域时，导航至“秘密基地”的宣告页通常是获取最新信息、公告以及参与相关活动的关键入口。以下将为您梳理如何找到并利用这类导航网址。</p><h2>探索“秘密基地”：获取信息的关键导航</h2><p>“秘密基地”作为一个概念，常出现在...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagske8krf6.html" class="tag">秘密基地</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="elugf940ud7l.html">秘密导航唐宋诗词</a></h2>
+        <div class="article-excerpt"><p><b>宋词精选：经典诵读与意境赏析</b></p><p>宋词，作为中华古典文学的璀璨明珠，以其婉约的风格、深邃的意境和细腻的情感，俘获了无数读者的心。在中国文学的长河中，宋词占据着举足轻重的地位。许多宋词不仅代表了当时的文学高峰，更成为中华文化宝库中不可或缺的瑰宝。</p><p><b>赫赫有名...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsuwsik.html" class="tag">诗词，宋词，唐诗，李清照，欧阳修</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="vrgfrgrc1mam.html">秘密基地宣告页导航是甚么</a></h2>
+        <div class="article-excerpt"><h1>急寻口袋怪兽绿宝石版第七个徽章过后的祥细攻略!</h1><p>战败熔岩团的人后，去道谷市左上角的屋子，代后会送你秘传机08潜水。并吞道谷市，在127号水路运用潜水，在水中不断往下走，进入一个洞穴，发现潜水艇就在这里。上岸后击败路上水之团的人，并吞深处，碰着水之团首领，尚有海皇牙。</p><p...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagsgxwydlcu.html" class="tag">基地</a><a href="tagspis47pz0gks.html" class="tag">导航</a><a href="tagst3nq5hikueor.html" class="tag">宣告页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-item">
+    <div class="article-content">
+        <h2 class="article-title"><a href="gxfr.html">秘密导航：都市舆图与秘密入口的探索</a></h2>
+        <div class="article-excerpt"><h1>都市舆图:探究都市的秘密刀兵与导航利器</h1><p>都市舆图是一种图形化工具，它揭示了都市的地舆信息，搜罗街道、修筑物、公园、交通关头等。经由都市舆图，人们可能直不雅地清晰都市的部份妄想以及部份细节。随着技术的睁开，今世都市舆图已经实现为了数字化以及智能化，可能利便地在手机、平板电脑等智能...</div>
+        <div class="article-meta">
+            <div class="article-tags">
+                <a href="tagspis47pz0gks.html" class="tag">导航</a>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+    <!-- 分页部分 - 使用动态生成的HTML -->
+    <div class="pagination">
+        
+    </div>
+    
+    <div class="footer">
+        <p>© 2023 秘密导航 | <a href="sitemap.xml" target="_blank">网站地图</a></p>
+    </div>
+</body>
+</html>

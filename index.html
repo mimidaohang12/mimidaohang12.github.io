@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>秘密导航-精品影视导航的入口</title>
+  <meta name="description" content="秘密导航是一个收集影视分享、社区交流与资源共享于一体的免费导航平台" />
+  <meta name="keywords" content="影视,免费资源,导航,入口" />
+  <meta name="author" content="秘密导航" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml.xml" />
+  <meta property="og:title" content="秘密导航" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Times New Roman", "Georgia", "SimSun", serif;
+      background: #f5f1e6 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" opacity="0.03"><rect width="400" height="400" fill="none" stroke="%23876d4d" stroke-width="1"/><path d="M0,0 L400,400" stroke="%23876d4d" stroke-width="0.5" opacity="0.3"/><path d="M400,0 L0,400" stroke="%23876d4d" stroke-width="0.5" opacity="0.3"/></svg>');
+      margin: 0;
+      color: #3a3225;
+      display: flex;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+      color: #5d4c32;
+      padding: 30px 20px;
+      text-align: center;
+      width: 100%;
+      border-bottom: 4px double #8a7a5e;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    header:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 1px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 2px solid #8a7a5e;
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+    nav {
+      background: #e8e0d0;
+      padding: 20px;
+      min-width: 180px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      border-right: 2px solid #8a7a5e;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+    nav a {
+      display: block;
+      margin: 15px 0;
+      color: #5d4c32;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px;
+      border-left: 3px solid transparent;
+      transition: all 0.3s;
+      font-weight: bold;
+      position: relative;
+    }
+    nav a:hover {
+      color: #3a3225;
+      border-left: 3px solid #8a7a5e;
+      background: rgba(139, 122, 94, 0.1);
+    }
+    nav a:before {
+      content: "»";
+      margin-right: 8px;
+      color: #8a7a5e;
+    }
+    main {
+      max-width: 960px;
+      margin: 40px auto 40px 200px;
+      padding: 0 20px;
+    }
+    section {
+      background: rgba(248, 244, 237, 0.9);
+      margin-bottom: 30px;
+      padding: 20px 25px;
+      border: 1px solid #b8a98d;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    section:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+    }
+    section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #5d4c32;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      border-bottom: 1px dashed #8a7a5e;
+      padding-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    section p, section li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4a4235;
+    }
+    section ul {
+      padding-left: 20px;
+    }
+    section li {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 8px;
+    }
+    section li:before {
+      content: "•";
+      color: #8a7a5e;
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: bold;
+    }
+    footer {
+      background: linear-gradient(to top, #e8e0d0, #d4cab8);
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 14px;
+      color: #5d4c32;
+      border-top: 4px double #8a7a5e;
+      margin-left: 180px;
+      position: relative;
+    }
+    footer:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+    }
+    footer a {
+      color: #5d4c32;
+      text-decoration: none;
+      margin-left: 10px;
+      transition: color 0.3s;
+      border-bottom: 1px dotted #8a7a5e;
+    }
+    footer a:hover {
+      color: #3a3225;
+      text-decoration: none;
+      border-bottom: 1px solid #8a7a5e;
+    }
+    .newspaper-title {
+      font-family: "Palatino Linotype", "Book Antiqua", serif;
+      font-size: 14px;
+      color: #8a7a5e;
+      text-align: center;
+      margin-top: 5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .software-img {
+      border: 2px solid #8a7a5e;
+      box-shadow: 0 0 10px rgba(139, 122, 94, 0.3);
+      max-width: 200px;
+      margin-bottom: 15px;
+      padding: 5px;
+      background: white;
+    }
+    .date-line {
+      font-style: italic;
+      color: #8a7a5e;
+      text-align: center;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    .column-divider {
+      border-right: 1px dashed #b8a98d;
+      padding-right: 20px;
+    }
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      nav {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid #8a7a5e;
+      }
+      main {
+        margin: 20px auto;
+      }
+      footer {
+        margin-left: 0;
+      }
+    }
+  </style>
+  <script src="/yidong.js"></script>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">首页</a>
+    <a href="tagslist.html">标签列表</a>
+    <a href="posts.html">文章列表</a>
+  </nav>
+
+  <div style="flex: 1;">
+    <header>
+      <img src="/logo.jpg" alt="logo" class="software-img">
+      <h1>秘密导航</h1>
+      <div class="newspaper-title">秘密导航</div>
+      <div class="date-line">今日日期：<span id="current-date"></span></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>平台简介</h2>
+        <p>秘密导航是一个融合影视分享、社区互动与资源共享的导航平台，致力于打造一个自由、纯净的内容交流空间。用户可随时浏览热门影视内容，参与讨论，分享资源，全部功能开放使用，无需注册，无任何广告干扰。</p>
+      </section>
+
+      <section>
+        <h2>平台特色</h2>
+        <ul>
+          <li><strong>多样内容：</strong>涵盖影视、软件、教程、工具等各类资源。</li>
+          <li><strong>纯净体验：</strong>页面简洁无弹窗，无强制引导，无广告植入。</li>
+          <li><strong>开放交流：</strong>支持用户间自由互动与资源互助分享。</li>
+          <li><strong>免注册使用：</strong>无需账号即可访问和下载，大大提升访问效率。</li>
+          <li><strong>公益导航：</strong>本导航平台收集了各种精品社区。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>加入我们</h2>
+        <p>如果你有优质资源愿意共享，或希望参与内容维护与社区管理，欢迎通过下方方式联系我们，一起共建一个开放、可信、互助的资源站。</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 秘密导航 Haijiao Community. 保留所有权利。
+     <a href="sitemap.xml" target="_blank">网站地图</a>
+    </footer>
+  </div>
+  
+  <script>
+    // 显示当前日期
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN', options);
+  </script>
+</body>
+</html>

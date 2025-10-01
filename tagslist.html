@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Language" content="zh-CN">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>标签列表 - 第1页-秘密导航</title>
+<meta property="og:title" content="标签列表 - 第1页 - 秘密导航">
+<meta property="og:description" content="浏览所有文章标签 - 第1页">
+<meta property="og:url" content="https://mimidaohang12.github.io/tagslist_1.html">
+<meta property="og:type" content="article">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+  font-family: "Times New Roman", "Georgia", "SimSun", serif;
+  background: #f8f4e8 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" opacity="0.02"><rect width="120" height="120" fill="none" stroke="%23876d4d" stroke-width="1"/><path d="M0,60 Q60,0 120,60 Q60,120 0,60" fill="none" stroke="%23876d4d" stroke-width="0.5"/></svg>');
+  color: #3a3225;
+  padding: 30px;
+  max-width: 860px;
+  margin: 30px auto;
+  line-height: 1.7;
+  border: 1px solid #b8a98d;
+  box-shadow: 0 0 20px rgba(139, 122, 94, 0.2);
+  position: relative;
+}
+body:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+}
+body:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, transparent, transparent 10px, #8a7a5e 10px, #8a7a5e 20px);
+}
+
+.newspaper-masthead {
+    text-align: center;
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 16px;
+    color: #8a7a5e;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+h1 {
+  font-size: 32px;
+  color: #5d4c32;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+h1:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #8a7a5e, transparent);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.tag-list a {
+  display: inline-block;
+  padding: 15px 30px;
+  background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+  color: #5d4c32;
+  text-decoration: none;
+  border-radius: 2px;
+  border: 1px solid #b8a98d;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  font-size: 18px;
+  min-width: 150px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.tag-list a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 122, 94, 0.1), transparent);
+  transition: all 0.6s;
+}
+
+.tag-list a:hover {
+  background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+  color: #3a3225;
+  border: 1px solid #8a7a5e;
+  box-shadow: 0 3px 8px rgba(139, 122, 94, 0.2);
+  transform: translateY(-3px);
+}
+.tag-list a:hover:before {
+  left: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.pagination a, .pagination span {
+  padding: 10px 20px;
+  background: linear-gradient(to bottom, #e8e0d0, #d4cab8);
+  color: #5d4c32;
+  text-decoration: none;
+  border-radius: 2px;
+  border: 1px solid #b8a98d;
+  transition: all 0.4s ease;
+  font-size: 16px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.pagination a:hover {
+  background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+  color: #3a3225;
+  border: 1px solid #8a7a5e;
+  box-shadow: 0 2px 5px rgba(139, 122, 94, 0.2);
+  transform: translateY(-2px);
+}
+
+.pagination .current {
+  background: linear-gradient(to bottom, #d4cab8, #c8bc9e);
+  color: #3a3225;
+  font-weight: bold;
+  border: 1px solid #8a7a5e;
+}
+
+.pagination .disabled {
+  color: #b8a98d;
+  cursor: not-allowed;
+  background: linear-gradient(to bottom, #f0ece0, #e8e0d0);
+}
+
+a[href$="xml"] {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+  color: #8a7a5e;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s;
+  padding-top: 20px;
+  border-top: 1px dashed #b8a98d;
+}
+a[href$="xml"]:hover {
+  color: #5d4c32;
+  text-decoration: underline;
+}
+
+.software-img {
+  display: block;
+  margin: 0 auto 30px;
+  max-width: 120px;
+  border: 1px solid #8a7a5e;
+  box-shadow: 0 0 10px rgba(139, 122, 94, 0.3);
+  padding: 5px;
+  background: white;
+}
+
+.archive-info {
+    text-align: center;
+    font-style: italic;
+    color: #8a7a5e;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+</style>
+<script src="/yidong.js"></script>
+</head>
+<body>
+<div class="newspaper-masthead">秘密导航 标签档案馆</div>
+<div class="archive-info">总标签数: {{TAG_COUNT}} | 最后更新: <span id="update-date"></span></div>
+
+<header>
+   <img src="/logo.jpg" alt="logo" class="software-img">
+</header>
+
+<h1>标签列表</h1>
+
+<div class="tag-list">
+  <a href="tagsgxwydlcu.html" class="tag-item">基地</a> <a href="tags5hbh.html" class="tag-item">秘密导航</a> <a href="tagske8krf6.html" class="tag-item">秘密基地</a> <a href="tagsuwsik.html" class="tag-item">诗词，宋词，唐诗，李清照，欧阳修</a> <a href="tagspis47pz0gks.html" class="tag-item">导航</a> <a href="tagst3nq5hikueor.html" class="tag-item">宣告页</a> 
+</div>
+
+<div class="pagination">
+  
+</div>
+
+<!-- 友情链接区域 -->
+<a href="sitemap.xml" target="_blank">网站地图</a>
+
+<script>
+    // 显示更新日期
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('update-date').textContent = now.toLocaleDateString('zh-CN', options);
+</script>
+</body>
+</html>
